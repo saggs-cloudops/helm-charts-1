@@ -3,7 +3,7 @@
 # Declare variables to be passed into your templates.
 image:
   repository: quay.io/prometheus/node-exporter
-  tag: v1.2.0
+  tag: v1.2.2
   pullPolicy: IfNotPresent
 
 service:
@@ -11,6 +11,7 @@ service:
   port: 9100
   targetPort: 9100
   nodePort:
+  portName: metrics
   listenOnAllInterfaces: true
   annotations:
     prometheus.io/scrape: "true"
@@ -57,6 +58,7 @@ serviceAccount:
   name:
   annotations: {}
   imagePullSecrets: []
+  automountServiceAccountToken: false
 
 securityContext:
   fsGroup: 65534
@@ -84,6 +86,9 @@ endpoints: []
 
 # Expose the service to the host network
 hostNetwork: true
+
+# Share the host process ID namespace
+hostPID: true
 
 ## If true, node-exporter pods mounts host / at /host/root
 ##

@@ -101,8 +101,7 @@ spec:
           labelSelector:
             matchExpressions:
               - {key: app, operator: In, values: [alertmanager]}
-              - {key: prometheus, operator: In, values: [{{ template "kube-prometheus-stack.fullname" . }}-alertmanager]}
-{{- end }}
+              - {key: alertmanager, operator: In, values: [{{ template "kube-prometheus-stack.fullname" . }}-alertmanager]}
 {{- end }}
 {{- if .Values.alertmanager.alertmanagerSpec.tolerations }}
   tolerations:
@@ -146,4 +145,5 @@ spec:
 {{- end }}
 {{- if .Values.alertmanager.alertmanagerSpec.forceEnableClusterMode }}
   forceEnableClusterMode: {{ .Values.alertmanager.alertmanagerSpec.forceEnableClusterMode }}
+{{- end }}
 {{- end }}
